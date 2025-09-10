@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAYMENT BY RAFFSTR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-image: linear-gradient(to bottom, #000000, #1a1a1a);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #151515;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #2a2a2a;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffcc00;
+        }
+        
+        .payment-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: #ffcc00;
+            font-weight: 600;
+        }
+        
+        .payment-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+        
+        .payment-option {
+            width: 48%;
+            padding: 15px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #333;
+        }
+        
+        .payment-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.2);
+            border-color: #ffcc00;
+        }
+        
+        .payment-option.active {
+            border-color: #ffcc00;
+            background-color: #252525;
+        }
+        
+        .payment-option i {
+            font-size: 30px;
+            margin-bottom: 10px;
+            color: #ffcc00;
+        }
+        
+        .payment-option p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        
+        .payment-details {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            display: none;
+        }
+        
+        .payment-details.active {
+            display: block;
+        }
+        
+        .detail-item {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .detail-item span:first-child {
+            font-weight: 600;
+            color: #aaa;
+        }
+        
+        .detail-item span:last-child {
+            font-weight: 500;
+            color: #ffcc00;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #ddd;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background-color: #1a1a1a;
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #ffcc00;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background-color: #ffcc00;
+            color: #000;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #ffd633;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.3);
+        }
+        
+        .status {
+            text-align: center;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .status-icon {
+            font-size: 70px;
+            margin-bottom: 20px;
+        }
+        
+        .success {
+            color: #4CAF50;
+        }
+        
+        .failed {
+            color: #F44336;
+        }
+        
+        .whatsapp-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #25D366;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+        
+        .copy-btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+        
+        .copy-btn:hover {
+            background-color: #ffcc00;
+            color: #000;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px; ya
+            padding: 15px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBmaWxsPSIjZmZjYzAwIj48cGF0aCBkPSJNMjU2IDhDMTE5IDggOCAxMTkgOCAyNTZzMTExIDI0OCAyNDggMjQ4IDI0OC0xMTEgMjQ4LTI0OFMzOTMgOCAyNTYgOHptMCA0NDhjLTExMC41IDAtMjAwLTg5LjUtMjAwLTIwMFMxNDUuNSA1NiAyNTYgNTZzMjAwIDg5LjUgMjAwIDIwMC04OS41IDIwMC0yMDAgMjAweiIvPjxwYXRoIGQ9Ik0yNzIgMTM2aC0zMmMtNC40IDAtOCAzLjYtOCA4djM1MmMwIDQuNCAzLjYgOCA4IDhoMzJjNC40IDAgOC0zLjYgOC04VjE0NGMwLTQuNC0zLjYtOC04LTh6bTk2IDBoLTMyYy00LjQgMC04IDMuNi04IDh2MzUyYzAgNC40IDMuNiA4IDggOGgzMmM0LjQgMCA4LTMuNiA4LThWMTQ0YzAtNC40LTMuNi04LTgtOHoiLz48L3N2Zz4=" alt="Logo Payment">
+        </div>
+        
+        <h1 class="payment-title">PEMBAYARAN</h1>
+        
+        <div class="payment-options">
+            <div class="payment-option" id="dana-option">
+                <i class="fas fa-wallet"></i>
+                <p>DANA</p>
+            </div>
+            <div class="payment-option" id="gopay-option">
+                <i class="fab fa-google-wallet"></i>
+                <p>GOPAY</p>
+            </div>
+        </div>
+        
+        <div class="payment-details" id="dana-details">
+            <div class="detail-item">
+                <span>Nomor:</span>
+                <span>083867468118 <button class="copy-btn" data-number="083867468118">Salin</button></span>
+            </div>
+            <div class="detail-item">
+                <span>Nama:</span>
+                <span>Lip</span>
+            </div>
+        </div>
+        
+        <div class="payment-details" id="gopay-details">
+            <div class="detail-item">
+                <span>Nomor:</span>
+                <span>083893476377 <button class="copy-btn" data-number="083893476377">Salin</button></span>
+            </div>
+            <div class="detail-item">
+                <span>Nama:</span>
+                <span>RAFFSTR</span>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label for="amount">MASUKKAN NOMINAL (RP)</label>
+            <input type="number" id="amount" placeholder="Contoh: 50000">
+        </div>
+        
+        <button class="btn" id="pay-button">BAYAR</button>
+        
+        <a href="https://wa.me/6283893476377" class="whatsapp-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i> KONFIRMASI VIA WHATSAPP
+        </a>
+        
+        <div class="status" id="success-status">
+            <div class="status-icon success">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>PEMBAYARAN BERHASIL</h2>
+            <p>Terima kasih telah melakukan pembayaran</p>
+        </div>
+        
+        <div class="status" id="failed-status">
+            <div class="status-icon failed">
+                <i class="fas fa-times-circle"></i>
+            </div>
+            <h2>PEMBAYARAN GAGAL</h2>
+            <p>Silakan coba lagi atau hubungi customer service</p>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification">Nomor berhasil disalin!</div>
+
+    <script>
+        // Elements
+        const danaOption = document.getElementById('dana-option');
+        const gopayOption = document.getElementById('gopay-option');
+        const danaDetails = document.getElementById('dana-details');
+        const gopayDetails = document.getElementById('gopay-details');
+        const payButton = document.getElementById('pay-button');
+        const successStatus = document.getElementById('success-status');
+        const failedStatus = document.getElementById('failed-status');
+        const amountInput = document.getElementById('amount');
+        const copyButtons = document.querySelectorAll('.copy-btn');
+        const notification = document.getElementById('notification');
+        
+        // Variables
+        let selectedMethod = null;
+        
+        // Event Listeners
+        danaOption.addEventListener('click', () => {
+            selectPaymentMethod('dana');
+        });
+        
+        gopayOption.addEventListener('click', () => {
+            selectPaymentMethod('gopay');
+        });
+        
+        payButton.addEventListener('click', () => {
+            if (!selectedMethod) {
+                alert('Pilih metode pembayaran terlebih dahulu!');
+                return;
+            }
+            
+            if (!amountInput.value || amountInput.value <= 0) {
+                alert('Masukkan nominal pembayaran yang valid!');
+                return;
+            }
+            
+            // Simulasi pembayaran (80% berhasil, 20% gagal)
+            const isSuccess = Math.random() > 0.2;
+            
+            if (isSuccess) {
+                showStatus('success');
+            } else {
+                showStatus('failed');
+            }
+        });
+        
+        copyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const number = button.getAttribute('data-number');
+                copyToClipboard(number);
+                showNotification();
+            });
+        });
+        
+        // Functions
+        function selectPaymentMethod(method) {
+            selectedMethod = method;
+            
+            // Reset active states
+            danaOption.classList.remove('active');
+            gopayOption.classList.remove('active');
+            danaDetails.classList.remove('active');
+            gopayDetails.classList.remove('active');
+            
+            // Set active state based on selection
+            if (method === 'dana') {
+                danaOption.classList.add('active');
+                danaDetails.classList.add('active');
+            } else if (method === 'gopay') {
+                gopayOption.classList.add('active');
+                gopayDetails.classList.add('active');
+            }
+        }
+        
+        function showStatus(status) {
+            // Hide all status first
+            successStatus.style.display = 'none';
+            failedStatus.style.display = 'none';
+            
+            // Show the selected status
+            if (status === 'success') {
+                successStatus.style.display = 'block';
+            } else if (status === 'failed') {
+                failedStatus.style.display = 'block';
+            }
+            
+            // Scroll to status
+            document.querySelector('.status').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+        
+        function showNotification() {
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        }
+        
+        // Initialize with DANA selected by default
+        selectPaymentMethod('dana');
+    </script>
+</body>
+</html>
